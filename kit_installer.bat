@@ -14,12 +14,12 @@ IF ERRORLEVEL 1 (
     		ECHO "There was an error while installing python!"
     		EXIT /B
 	) ELSE (
+		ECHO Installing dependent modules ...
 		curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
 		%PY_LOCATION%\python.exe -m pip install -r requirements.txt
 	)
     EXIT /B
 ) ELSE (
-	ECHO Python is found in PATH variable
 	for /f %%i in ('python -c "import sys; print(sys.version_info[0])"') do set PYTHON_M_VERSION=%%i	
 	ECHO !PYTHON_M_VERSION!
 	IF !PYTHON_M_VERSION! EQU 2 (
@@ -39,11 +39,11 @@ IF ERRORLEVEL 1 (
 
 	) ELSE (
 		IF !PYTHON_M_VERSION! EQU 3 (
-			ECHO Installing dependent modules
+			ECHO A valid python is detected and hence installing dependent modules ...
 			curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
 			python -m pip install -r requirements.txt
 		) else (
-			ECHO Python found wasn't installed
+			ECHO Python wasn't detected!
 			curl -o python-3.9.8-amd64.exe https://www.python.org/ftp/python/3.9.8/python-3.9.8-amd64.exe
 			python-3.9.8-amd64.exe /quiet InstallAllUsers=0 PrependPath=1 Include_test=0 TargetDir=%PY_LOCATION%
 			ECHO Installing python3.9.8 ...
@@ -52,7 +52,7 @@ IF ERRORLEVEL 1 (
 				ECHO There was an error while installing python!
 				EXIT /B
 			) ELSE (
-				ECHO Installing dependent modules
+				ECHO Installing dependent modules ...
 				curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
 				%PY_LOCATION%\python.exe -m pip install -r requirements.txt
 			)
@@ -60,4 +60,4 @@ IF ERRORLEVEL 1 (
 	)
 )
 
-curl -o realtime-object-detection.zip https://github.com/kandikits/realtime-object-detection/archive/refs/heads/main.zip
+curl -o realtime-object-detection.zip https://codeload.github.com/kandikits/realtime-object-detection/zip/refs/heads/main
