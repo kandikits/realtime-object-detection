@@ -56,8 +56,8 @@ IF ERRORLEVEL 1 (
 		)	
 	)
 )
+PAUSE
 EXIT /B %ERRORLEVEL%
-REM PAUSE
 
 :Download_repo
 curl -o realtime-object-detection.zip https://codeload.github.com/kandikits/realtime-object-detection/zip/refs/heads/main
