@@ -62,7 +62,7 @@ EXIT /B %ERRORLEVEL%
 
 :Download_repo
 REM curl -o realtime-object-detection.zip https://codeload.github.com/kandikits/realtime-object-detection/zip/refs/tags/v1.0.0
-bitsadmin /transfer repo_download_job /download "https://github.com/kandikits/realtime-object-detection/releases/download/v1.0.0/realtime-object-detection-main.zip" "%cd%\realtime-object-detection.zip"
+bitsadmin /transfer repo_download_job /download "https://github.com/kandikits/realtime-object-detection/releases/download/v1.0.0/realtime-object-detection.zip" "%cd%\realtime-object-detection.zip"
 ECHO==========================================================================
 ECHO 	The Kit has been installed successfully
 ECHO==========================================================================
