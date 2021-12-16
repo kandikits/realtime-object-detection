@@ -3,7 +3,7 @@ REM This is a sample script
 ECHO======================================================================================
 ECHO		Kandi kit installation process has begun
 ECHO======================================================================================
-ECHO 	This kit installer works only on operating systems - Windows 10 and above
+ECHO 	This kit installer works only on Windows OS
 ECHO 	Based on your network speed, the installation may take a while
 ECHO======================================================================================
 setlocal ENABLEDELAYEDEXPANSION
