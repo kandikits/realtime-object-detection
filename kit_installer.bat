@@ -40,7 +40,8 @@ IF ERRORLEVEL 1 (
 			ECHO==========================================================================
 			ECHO A valid python is detected and hence installing dependent modules ...
 			ECHO==========================================================================
-			curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
+			REM curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
+			bitsadmin /transfer dependency_download_job /download "https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt" "%cd%\requirements.txt"
 			python -m pip install -r requirements.txt
 			CALL :Download_repo
 		) else (
@@ -60,7 +61,8 @@ PAUSE
 EXIT /B %ERRORLEVEL%
 
 :Download_repo
-curl -o realtime-object-detection.zip https://codeload.github.com/kandikits/realtime-object-detection/zip/refs/heads/main
+REM curl -o realtime-object-detection.zip https://codeload.github.com/kandikits/realtime-object-detection/zip/refs/tags/v1.0.0
+bitsadmin /transfer repo_download_job /download "https://github.com/kandikits/realtime-object-detection/releases/download/v1.0.0/realtime-object-detection-main.zip" "%cd%\realtime-object-detection.zip"
 ECHO==========================================================================
 ECHO 	The Kit has been installed successfully
 ECHO==========================================================================
@@ -72,7 +74,8 @@ EXIT /B 0
 ECHO==========================================================================
 ECHO Downloading python%PY_VERSION% ... 
 ECHO==========================================================================
-curl -o python-%PY_VERSION%-amd64.exe %PY_DOWNLOAD_URL%
+REM curl -o python-%PY_VERSION%-amd64.exe %PY_DOWNLOAD_URL%
+bitsadmin /transfer python_download_job /download %PY_DOWNLOAD_URL% "%cd%\python-%PY_VERSION%-amd64.exe"
 ECHO Installing python%PY_VERSION% ...
 python-%PY_VERSION%-amd64.exe /quiet InstallAllUsers=0 PrependPath=1 Include_test=0 TargetDir=%PY_LOCATION%
 ECHO==========================================================================
@@ -86,7 +89,8 @@ IF ERRORLEVEL 1 (
 ) ELSE (
 	ECHO==========================================================================
 	ECHO Installing dependent modules ...
-	curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
+	REM curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
+	bitsadmin /transfer dependency_download_job /download "https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt" "%cd%\requirements.txt"
 	%PY_LOCATION%\python.exe -m pip install -r requirements.txt
 	ECHO==========================================================================
 )
