@@ -1,6 +1,11 @@
 # realtime-object-detection
 Detects objects in images/streaming video
 
+### Quickstart guide
+
+Refer kits from the link below to jumpstart the app
+* https://kandi.openweaver.com/collections/vision/object-detection-kit
+
 ### Installation Guide
 
 Once python3 is installed, install all the dependencies by running the below command.
