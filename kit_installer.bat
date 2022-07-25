@@ -11,6 +11,11 @@ REM update below path if required
 SET PY_LOCATION="C:\Python"
 SET PY_VERSION=3.9.8
 SET PY_DOWNLOAD_URL=https://www.python.org/ftp/python/3.9.8/python-3.9.8-amd64.exe
+SET REPO_DOWNLOAD_URL=https://github.com/kandikits/realtime-object-detection/releases/download/v1.0.0/realtime-object-detection.zip
+SET REPO_DEPENDENCIES_URL=https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
+SET REPO_NAME=realtime-object-detection.zip
+SET EXTRACTED_REPO_DIR=realtime-object-detection
+SET NOTEBOOK_NAME=Realtime Object Detection.ipynb
 where /q python
 IF ERRORLEVEL 1 (
 	ECHO==========================================================================
@@ -41,7 +46,7 @@ IF ERRORLEVEL 1 (
 			ECHO A valid python is detected and hence installing dependent modules ...
 			ECHO==========================================================================
 			REM curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
-			bitsadmin /transfer dependency_download_job /download "https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt" "%cd%\requirements.txt"
+			bitsadmin /transfer dependency_download_job /download %REPO_DEPENDENCIES_URL% "%cd%\requirements.txt"
 			python -m pip install -r requirements.txt
 			CALL :Download_repo
 		) else (
@@ -57,12 +62,22 @@ IF ERRORLEVEL 1 (
 		)	
 	)
 )
+SET /P CONFIRM=Would you like to run the kit (Y/N)?
+IF /I "%CONFIRM%" NEQ "Y" (
+	ECHO 	To run the kit, follow further instructions of the kit in kandi	
+	ECHO==========================================================================
+) ELSE (
+	ECHO 	Extracting the repo ...	
+	ECHO==========================================================================
+	tar -xvf %REPO_NAME%
+	jupyter notebook "%EXTRACTED_REPO_DIR%\%NOTEBOOK_NAME%"
+)
 PAUSE
 EXIT /B %ERRORLEVEL%
 
 :Download_repo
 REM curl -o realtime-object-detection.zip https://codeload.github.com/kandikits/realtime-object-detection/zip/refs/tags/v1.0.0
-bitsadmin /transfer repo_download_job /download "https://github.com/kandikits/realtime-object-detection/releases/download/v1.0.0/realtime-object-detection.zip" "%cd%\realtime-object-detection.zip"
+bitsadmin /transfer repo_download_job /download %REPO_DOWNLOAD_URL% "%cd%\%REPO_NAME%"
 ECHO==========================================================================
 ECHO 	The Kit has been installed successfully
 ECHO==========================================================================
@@ -90,7 +105,7 @@ IF ERRORLEVEL 1 (
 	ECHO==========================================================================
 	ECHO Installing dependent modules ...
 	REM curl -o requirements.txt https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt
-	bitsadmin /transfer dependency_download_job /download "https://raw.githubusercontent.com/kandikits/realtime-object-detection/main/requirements.txt" "%cd%\requirements.txt"
+	bitsadmin /transfer dependency_download_job /download %REPO_DEPENDENCIES_URL% "%cd%\requirements.txt"
 	%PY_LOCATION%\python.exe -m pip install -r requirements.txt
 	ECHO==========================================================================
 )
